@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+    client:
+        working_dir: /trythis
+        build:
+          context: ./trythis
+          dockerfile: ./Dockerfile
+        volumes:
+          - type: bind
+            source: ./trythis
+            target: /trythis
+          - node_modules:/trythis/node_modules
+        tmpfs: /trythis/tmp
+
+        ports:
+          - '4200:4200' # ember server
+          - '7020:7020' # livereload
+        command: 'ember server'
+
+volumes:
+    node_modules:
